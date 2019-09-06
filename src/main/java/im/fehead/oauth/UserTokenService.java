@@ -1,32 +1,34 @@
 package im.fehead.oauth;
 
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.oauth2.common.OAuth2AccessToken;
-import org.springframework.security.oauth2.common.exceptions.InvalidTokenException;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.boot.autoconfigure.security.oauth2.resource.AuthoritiesExtractor;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 
 import im.fehead.domain.enums.SocialType;
 
-public class UserTokenService implements UserInfoTokenServices {
+public class UserTokenService extends UserInfoTokenServices {
 
 	public UserTokenService(ClientResources client, SocialType socialType) {
 		super(client.getResource().getUserInfoUri(),
 				client.getClient().getClientId());
-		
+		setAuthoritiesExtractor(new OAuth2AuthoritiesExtractor(socialType));
 	}
 
-	@Override
-	public OAuth2Authentication loadAuthentication(String accessToken)
-			throws AuthenticationException, InvalidTokenException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public static class OAuth2AuthoritiesExtractor implements AuthoritiesExtractor {
+		private String socialType;
 
-	@Override
-	public OAuth2AccessToken readAccessToken(String accessToken) {
-		// TODO Auto-generated method stub
-		return null;
+		public OAuth2AuthoritiesExtractor(SocialType socialType) {
+			this.socialType = socialType.getRoleType();
+		}
+
+		@Override
+		public List<GrantedAuthority> extractAuthorities(Map<String, Object> map) {
+			return AuthorityUtils.createAuthorityList(this.socialType);
+		}
 	}
 
 }
