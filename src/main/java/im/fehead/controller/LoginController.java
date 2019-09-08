@@ -21,6 +21,7 @@ public class LoginController {
 		return "login";
 	}
 	
+	@GetMapping("/{facebook|google|kakao}/complete")
 	public String loginComplete(HttpSession session) {
 		OAuth2Authentication authentication = (OAuth2Authentication)
 				SecurityContextHolder.getContext().getAuthentication();
