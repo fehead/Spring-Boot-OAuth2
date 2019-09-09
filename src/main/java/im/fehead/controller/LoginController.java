@@ -3,6 +3,7 @@ package im.fehead.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import im.fehead.annotation.SocialUser;
 import im.fehead.domain.User;
 
 @Controller

@@ -12,6 +12,8 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import im.fehead.domain.User;
+import im.fehead.repository.BoardRepository;
+import im.fehead.repository.UserRepository;
 import im.fehead.resolver.UserArgumentResolver;
 
 @SpringBootApplication
@@ -40,7 +42,7 @@ public class SpringBootOAuth2Application extends WebMvcConfigurerAdapter{
 				.createdDate(LocalDateTime.now())
 				.build()
 			);
-		}
+		};
 	}
 	
 }
