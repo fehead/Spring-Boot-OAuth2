@@ -38,7 +38,7 @@ public class SpringBootOAuth2Application extends WebMvcConfigurerAdapter{
 			userRepository.save(User.builder()
 				.name("havi")
 				.email("test")
-				.principal("havi@gmail.com")
+				.pincipal("havi@gmail.com")
 				.createdDate(LocalDateTime.now())
 				.build()
 			);
