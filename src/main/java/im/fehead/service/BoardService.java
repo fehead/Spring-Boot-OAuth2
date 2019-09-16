@@ -1,5 +1,8 @@
 package im.fehead.service;
 
+import java.util.Optional;
+import java.util.stream.Stream;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -21,12 +24,13 @@ public class BoardService {
     }
 
     public Page<Board> findBoardList(Pageable pageable) {
-        pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize());
+        pageable = new PageRequest(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1, pageable.getPageSize());
         return boardRepository.findAll(pageable);
     }
 
     public Board findBoardByIdx(Long idx) {
-        return boardRepository.findById(idx).orElse(new Board());
+        return Optional.of(boardRepository.findOne(idx))
+        	.orElse(new Board());
     }
 
 }
