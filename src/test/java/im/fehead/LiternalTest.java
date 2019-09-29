@@ -29,4 +29,10 @@ public class LiternalTest {
 		assertThat(a == b).isFalse();
 	}
 
+	@Test
+	public void integerTest2() {
+		Integer b = new Integer(10);
+		assertThat(10 == b).isTrue();
+	}
+
 }
