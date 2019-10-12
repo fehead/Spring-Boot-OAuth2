@@ -42,5 +42,13 @@ public class LiternalTest {
 		Integer b = new Integer(11);
 		assertThat(a == b).isTrue();
 	}
+	
+	@Test
+	public void integerTest4() {
+		Integer a = 11;
+		Integer b = new Integer(a);
+		assertThat(a == b).isFalse();
+		assertThat(a.intValue() == b).isTrue();
+	}
 
 }
